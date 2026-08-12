@@ -99,7 +99,7 @@ window.NAHID_KNOWLEDGE = {
       id: "contact",
       keywords: ["contact", "hire", "email", "phone", "reach", "available", "freelance"],
       answer:
-        "Happy to connect. Email: nhassan213@gmail.com · Phone: (+88) 01817-098032 · Location: Manikganj, Dhaka, Bangladesh. Use the Contact section or Hire Me button on the homepage."
+        "I work from Bangladesh (UTC+6 / BST). Email nhassan213@gmail.com or call (+88) 01817-098032. For cross-timezone work, email is best. Open the Contact section for details."
     },
     {
       id: "education",
