@@ -14,6 +14,11 @@
   --cv-page-bg: #e8eef4;
   --cv-sheet: #ffffff;
   --cv-chip: rgba(20, 157, 221, 0.12);
+  --cv-side-bg-top: #3a7392;
+  --cv-side-bg-mid: #2f6482;
+  --cv-side-bg-bottom: #255570;
+  --cv-side-text: #f4fafd;
+  --cv-side-muted: #c5e0ee;
 }
 
 *,
@@ -129,13 +134,14 @@ a:hover {
 
 /* ===== Sidebar ===== */
 .cv-side {
-  background: linear-gradient(180deg, var(--cv-navy) 0%, var(--cv-navy-mid) 55%, #0a2740 100%);
-  color: #e8f4fb;
+  background: linear-gradient(180deg, var(--cv-side-bg-top) 0%, var(--cv-side-bg-mid) 55%, var(--cv-side-bg-bottom) 100%);
+  color: var(--cv-side-text);
   padding: 8mm 6.5mm 7mm;
   display: flex;
   flex-direction: column;
   gap: 4.5mm;
   position: relative;
+  border-right: 1px solid rgba(20, 157, 221, 0.2);
 }
 
 .cv-side::after {
@@ -145,7 +151,7 @@ a:hover {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(180deg, var(--cv-accent), transparent 70%);
+  background: linear-gradient(180deg, var(--cv-accent), rgba(20, 157, 221, 0.15) 70%);
 }
 
 .cv-side-top {
@@ -171,14 +177,14 @@ a:hover {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
-  color: #fff;
+  color: #ffffff;
 }
 
 .cv-role {
   margin: 0 0 1mm;
   font-size: 10pt;
   font-weight: 600;
-  color: var(--cv-accent);
+  color: #7dd3f0;
 }
 
 .cv-tagline {
@@ -186,7 +192,7 @@ a:hover {
   font-size: 8pt;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: rgba(232, 244, 251, 0.7);
+  color: var(--cv-side-muted);
 }
 
 .cv-side-block h2 {
@@ -195,8 +201,8 @@ a:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--cv-accent);
-  border-bottom: 1px solid rgba(20, 157, 221, 0.35);
+  color: #7dd3f0;
+  border-bottom: 1px solid rgba(125, 211, 240, 0.35);
   padding-bottom: 1.5mm;
 }
 
@@ -206,7 +212,7 @@ a:hover {
   list-style: none;
   font-size: 8.5pt;
   line-height: 1.45;
-  color: rgba(232, 244, 251, 0.9);
+  color: var(--cv-side-text);
 }
 
 .cv-side-list li {
@@ -226,7 +232,7 @@ a:hover {
   width: 3.6mm;
   height: 3.6mm;
   margin-top: 0.6mm;
-  color: var(--cv-accent);
+  color: #7dd3f0;
   flex-shrink: 0;
 }
 
@@ -237,11 +243,11 @@ a:hover {
 }
 
 .cv-side-list a {
-  color: #fff;
+  color: #ffffff;
 }
 
 .cv-side-list a:hover {
-  color: var(--cv-accent);
+  color: #7dd3f0;
 }
 
 .cv-lang li {
@@ -262,9 +268,9 @@ a:hover {
   font-weight: 600;
   padding: 1.3mm 2.5mm;
   border-radius: 999px;
-  background: rgba(20, 157, 221, 0.18);
-  border: 1px solid rgba(20, 157, 221, 0.35);
-  color: #dff3fc;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(125, 211, 240, 0.4);
+  color: #e8f6fc;
 }
 
 .cv-side-portfolio {
@@ -275,12 +281,12 @@ a:hover {
   display: block;
   font-size: 8pt;
   font-weight: 700;
-  color: #fff;
+  color: #ffffff;
   word-break: break-all;
   padding: 2.5mm 3mm;
   border-radius: 6px;
-  background: rgba(20, 157, 221, 0.2);
-  border: 1px solid rgba(20, 157, 221, 0.4);
+  background: rgba(20, 157, 221, 0.28);
+  border: 1px solid rgba(125, 211, 240, 0.45);
   text-align: center;
 }
 
