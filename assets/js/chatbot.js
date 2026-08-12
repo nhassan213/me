@@ -555,8 +555,8 @@
 
     var root = el("div", "nahid-chat");
     root.innerHTML =
-      '<button type="button" class="nahid-chat-toggle" aria-expanded="false" aria-controls="nahid-chat-panel" title="Ask about Nahid">' +
-      '<i class="bx bx-bot"></i><span>Ask Nahid</span></button>' +
+      '<button type="button" class="nahid-chat-toggle" aria-expanded="false" aria-controls="nahid-chat-panel" title="Ask AI">' +
+      '<i class="bx bx-bot"></i><span>Ask AI</span></button>' +
       '<div class="nahid-chat-panel" id="nahid-chat-panel" hidden>' +
       '<div class="nahid-chat-header">' +
       "<div><strong>Ask about Nahid</strong><small>Answers based on this portfolio</small></div>" +
@@ -629,6 +629,13 @@
       else closeChat();
     });
     closeBtn.addEventListener("click", closeChat);
+
+    document.querySelectorAll("[data-open-nahid-chat]").forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        openChat();
+      });
+    });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
