@@ -350,7 +350,7 @@
     if (/\blaravel\b/.test(q) && (asksProjects || /\blist\b|\bshow\b|\bwhich\b|\byour\b/.test(q))) {
       return "laravel";
     }
-    if (/\b(flutter|dart)\b/.test(q) && (asksProjects || /\bapp\b/.test(q))) {
+    if (/\bflutter\b/.test(q) && (asksProjects || /\bapp\b/.test(q))) {
       return "flutter";
     }
     if (/\b(android)\b/.test(q) && asksProjects) {
@@ -395,7 +395,7 @@
       { keys: ["back", "php", "laravel", "api", "lumen", "flask"], group: "backend", label: "Back-End" },
       { keys: ["database", "mysql", "postgres", "redis", "sql"], group: "databases", label: "Databases" },
       { keys: ["devops", "aws", "docker", "cloud", "deploy", "cpanel"], group: "devops", label: "DevOps & Cloud" },
-      { keys: ["mobile", "flutter", "dart", "android", "firebase"], group: "mobile", label: "Mobile" },
+      { keys: ["mobile", "flutter", "android", "firebase"], group: "mobile", label: "Mobile" },
       { keys: ["security", "2fa", "auth"], group: "security", label: "Security & Comms" },
       { keys: ["ai", "chatbot", "llm", "automation"], group: "ai", label: "AI & Automation" },
       { keys: ["plan", "agile", "git", "leadership"], group: "planning", label: "Project Planning" }

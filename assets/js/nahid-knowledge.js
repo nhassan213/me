@@ -38,7 +38,7 @@ window.NAHID_KNOWLEDGE = {
     backend: ["PHP + OOP", "Laravel", "REST APIs", "Lumen", "Flask", "WordPress", "Python"],
     databases: ["MySQL", "PostgreSQL", "Schema design", "Redis cache", "Indexing", "Migrations"],
     devops: ["AWS", "Docker", "cPanel", "CDN", "Linux servers", "SSL / HTTPS"],
-    mobile: ["Flutter", "Dart", "Firebase", "Android", "Push / FCM", "REST API clients"],
+    mobile: ["Flutter", "Firebase", "Android", "Push / FCM", "REST API clients"],
     security: ["Auth & 2FA", "SMTP email", "Push alerts", "App hardening", "Roles / ACL"],
     ai: ["AI chatbots", "LLM integration", "Workflow automation", "Voice assistants"]
   },
@@ -249,9 +249,9 @@ window.NAHID_KNOWLEDGE = {
     },
     {
       id: "flutter",
-      keywords: ["flutter", "dart", "mobile app", "android app"],
+      keywords: ["flutter", "mobile app", "android app"],
       answer:
-        "## Mobile\n\nBuilds apps with **Flutter**, **Dart**, and **Firebase** (FCM, auth, sync).\n\nExamples:\n- **Ina** — AI secretary\n- **VoteInfoHub** — Android voter info app\n\nLaravel REST APIs often power the backend."
+        "## Mobile\n\nBuilds apps with **Flutter** and **Firebase** (FCM, auth, sync).\n\nExamples:\n- **Ina** — AI secretary\n- **VoteInfoHub** — Android voter info app\n\nLaravel REST APIs often power the backend."
     },
     {
       id: "projects",
