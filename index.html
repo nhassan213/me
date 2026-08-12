@@ -75,38 +75,77 @@
   <link href="assets/img/logo.png" rel="icon">
   <link href="assets/img/logo.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Icons + motion -->
   <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Tailwind CSS (config before CDN) -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
+      corePlugins: { preflight: false },
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#149ddd', hover: '#0f8bc4', soft: '#7dd3fc', tint: '#dff3fc' },
+            ink: { DEFAULT: '#050d18', mid: '#0a1a2e', deep: '#071422', muted: '#5a6a7a' }
+          },
+          screens: { xl: '1200px' },
+          fontFamily: {
+            sans: ['"Open Sans"', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+            heading: ['Raleway', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Site CSS -->
+  <link href="assets/css/style.css?v=20260812d" rel="stylesheet">
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body
+  x-data="{
+    mobileNav: false,
+    modal: null,
+    portfolioFilter: 'all',
+    openModal(id) { this.modal = id; document.documentElement.classList.add('overflow-hidden'); },
+    closeModal() { this.modal = null; document.documentElement.classList.remove('overflow-hidden'); },
+    matches(tags) { return this.portfolioFilter === 'all' || tags.includes(this.portfolioFilter); }
+  }"
+  :class="{ 'mobile-nav-active': mobileNav }"
+  @keydown.escape.window="closeModal(); mobileNav = false"
+  @close-nav.window="mobileNav = false"
+>
 
   <!-- ======= Mobile nav toggle button ======= -->
-  <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+  <button type="button" class="mobile-nav-toggle xl:hidden" @click="mobileNav = !mobileNav" :aria-expanded="mobileNav.toString()" aria-label="Toggle navigation">
+    <i class="icofont-navigation-menu" x-show="!mobileNav"></i>
+    <i class="icofont-close" x-show="mobileNav" x-cloak></i>
+  </button>
 
   <!-- ======= Header ======= -->
   <header id="header">
-    <div class="d-flex flex-column">
+    <div class="flex flex-col">
 
       <div class="profile">
-        <img src="assets/img/profile-img.png" alt="Portrait of Md Nahid Hassan" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Md Nahid Hassan</a></h1>
-        <h6 class="text-info text-center profile-role">Sr. Software Engineer</h6>
+        <img src="assets/img/profile-img.png" alt="Portrait of Md Nahid Hassan" class="max-w-full h-auto rounded-full">
+        <h1 class="text-white"><a href="index.html">Md Nahid Hassan</a></h1>
+        <h6 class="text-brand text-center profile-role">Sr. Software Engineer</h6>
         <div class="social-links mt-3 text-center">
           <a href="https://github.com/nhassan213" class="github" target="_blank" rel="noopener" aria-label="GitHub"><i class="bx bxl-github"></i></a>
           <a href="https://www.facebook.com/nahid475" class="facebook" target="_blank" rel="noopener" aria-label="Facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://plus.google.com/u/0/106120487167050435486" class="google" target="_blank" rel="noopener" aria-label="Google"><i class="bx bxl-google"></i></a>
           <a href="tel:01817098032" class="whatsapp" aria-label="Call or WhatsApp"><i class="bx bxl-whatsapp"></i></a>
           <a href="https://www.linkedin.com/in/md-nahid-hassan/" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bx bxl-linkedin"></i></a>
         </div>
@@ -123,13 +162,16 @@
           <li><a href="#contact"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
       </nav>
-      <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+      <button type="button" class="mobile-nav-toggle xl:hidden" @click="mobileNav = !mobileNav" :aria-expanded="mobileNav.toString()" aria-label="Toggle navigation">
+        <i class="icofont-navigation-menu" x-show="!mobileNav"></i>
+        <i class="icofont-close" x-show="mobileNav" x-cloak></i>
+      </button>
 
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <section id="hero" class="flex flex-col justify-center items-center">
     <div class="hero-motion-bg" aria-hidden="true">
       <canvas id="hero-skills-canvas"></canvas>
       <div class="hero-skill-orbit" id="hero-skill-orbit"></div>
@@ -162,7 +204,7 @@
 
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>About</h2>
@@ -171,7 +213,7 @@
 
         <div class="about-modern" data-aos="fade-up">
           <div class="about-photo">
-            <img src="assets/img/md-nahid-hassan.jpg" class="img-fluid" alt="Md Nahid Hassan, software engineer">
+            <img src="assets/img/md-nahid-hassan.jpg" class="max-w-full h-auto w-full" alt="Md Nahid Hassan, software engineer">
             <div class="about-photo-badge">
               <strong>6+ years</strong>
               <span>shipping production systems</span>
@@ -230,7 +272,7 @@
 
     <!-- ======= Skills Tree ======= -->
     <section id="skills" class="skills-tree-section section-bg">
-      <div class="container">
+      <div class="site-container">
         <div class="section-title">
           <h2>Skills</h2>
           <p>Scroll the engineering tree — each branch reveals what I use in production, step by step.</p>
@@ -273,7 +315,7 @@
               </div>
               <ul class="skill-tree-leaves">
                 <li><i class="bx bxl-html5"></i> HTML / CSS</li>
-                <li><i class="bx bxl-bootstrap"></i> Bootstrap</li>
+                <li><i class="bx bx-code-alt"></i> Tailwind CSS</li>
                 <li><i class="bx bxl-javascript"></i> JavaScript</li>
                 <li><i class="bx bxl-react"></i> React.js</li>
                 <li><i class="bx bx-bolt-circle"></i> Livewire</li>
@@ -393,15 +435,15 @@
 
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>Resume</h2>
           <p>A concise look at how I plan, build, and ship production software systems.</p>
         </div>
 
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div data-aos="fade-up">
             <h3 class="resume-title">Summary</h3>
             <div class="resume-item pb-0">
               <h4>Md Nahid Hassan</h4>
@@ -432,7 +474,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+          <div data-aos="fade-up" data-aos-delay="100">
             <h3 class="resume-title">Professional Experience</h3>
             <div class="resume-item">
               <h4>Sr. Software Engineer · <a href="https://hilinkz.com" target="_blank" rel="noopener">HiLinkz</a></h4>
@@ -455,7 +497,7 @@
               <ul>
                 <li>Delivered multiple Laravel applications covering business workflows, content, and admin systems.</li>
                 <li>Built interactive front-ends with JavaScript frameworks (including Ember.js and Angular.js projects).</li>
-                <li>Shipped full-stack solutions with PHP, MySQL, and responsive Bootstrap interfaces.</li>
+                <li>Shipped full-stack solutions with PHP, MySQL, and responsive front-end interfaces.</li>
                 <li>Practiced ownership of the full cycle: requirements, UI, backend, database, and deployment.</li>
               </ul>
             </div>
@@ -467,332 +509,302 @@
 
     <!-- ======= Portfolio Section ======= -->
     <section id="portfolio" class="portfolio section-bg">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>Portfolio</h2>
           <p>Selected production and learning work — platforms, SaaS, mobile, and AI. Confidential client systems stay off this list.</p>
         </div>
 
-        <div class="row" data-aos="fade-up">
-          <div class="col-lg-12 d-flex justify-content-center">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-laravel">Laravel</li>
-              <li data-filter=".filter-php">RAW PHP</li>
-              <li data-filter=".filter-android">Android / Flutter</li>
-              <li data-filter=".filter-ai">AI</li>
-            </ul>
+        <div class="flex justify-center" data-aos="fade-up">
+          <ul id="portfolio-flters">
+            <li @click="portfolioFilter = 'all'" :class="{ 'filter-active': portfolioFilter === 'all' }">All</li>
+            <li @click="portfolioFilter = 'laravel'" :class="{ 'filter-active': portfolioFilter === 'laravel' }">Laravel</li>
+            <li @click="portfolioFilter = 'android'" :class="{ 'filter-active': portfolioFilter === 'android' }">Android / Flutter</li>
+            <li @click="portfolioFilter = 'ai'" :class="{ 'filter-active': portfolioFilter === 'ai' }">AI</li>
+          </ul>
+        </div>
+
+        <div class="portfolio-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="portfolio-item" x-show="matches(['android', 'ai'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/ina.jpg" class="max-w-full h-auto w-full" alt="Ina — Your Personal AI Secretary app showcase">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Ina | Your Personal AI Secretary | Flutter | Firebase</p>
+                            <div class="portfolio-links">
+                              <a href="#" role="button" @click.prevent="openModal('ina')" title="Project Details"><i class="bx bx-info-circle"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/csc-northsouth.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">NSU Cybersecurity Center | Training & Events Platform | Laravel</p>
+                            <div class="portfolio-links">
+                              <a href="https://csc.northsouth.edu" title="NSU Cybersecurity Center | Training & Events Platform | Laravel" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/lxmcq.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">LXMCQ | MCQ & Job Exam Preparation Platform | Laravel</p>
+                            <div class="portfolio-links">
+                              <a href="https://lxmcq.com" title="LXMCQ | MCQ & Job Exam Preparation Platform | Laravel" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/lxnotes.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">LXNotes | English Literature Study Notes Platform | Laravel</p>
+                            <div class="portfolio-links">
+                              <a href="https://lxnotes.com" title="LXNotes | English Literature Study Notes Platform | Laravel" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/xpose-fitness.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Xpose Fitness BD | Gym Management System | Laravel</p>
+                            <div class="portfolio-links">
+                              <a href="https://admin.xposefitnessbd.com" title="Xpose Fitness BD | Gym Management System | Laravel" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/ryofin.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">RyoFin | Inventory, Sales & Accounting SaaS | Laravel</p>
+                            <div class="portfolio-links">
+                              <a href="https://www.ryofin.com" title="RyoFin | Inventory, Sales & Accounting SaaS | Laravel" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/knoterp.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">KnotERP | Field Sales CRM | Laravel | Mobile App</p>
+                            <div class="portfolio-links">
+                              <a href="https://www.knoterp.com" title="KnotERP | Field Sales CRM | Laravel | Mobile App" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['android'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/voteinfohub.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">VoteInfoHub | Election Voter Information App | Android</p>
+                            <div class="portfolio-links">
+                              <a href="https://play.google.com/store/apps/details?id=com.hilinkz.VoteInfoHub&hl=en" title="VoteInfoHub | Election Voter Information App | Android" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/e-rosid.png" class="max-w-full h-auto w-full" alt="Portfolio Item">
+                              <p class="text-center font-bold text-sm mt-2 px-1">Inventory Management | POS | HRM | Accounting | e-Rosid | Laravel | MySQL</p>
+                              <div class="portfolio-links">
+                                <a href="#" role="button" @click.prevent="openModal('erosid')" title="Project Details"><i class="bx bx-info-circle"></i></a>
+                                <a href="https://www.e-rosid.com/" title="Project Link" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/lpgautogasbd.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">LPG Owner's Association Web Application | Laravel</p> 
+                            <div class="portfolio-links">
+                              <a href="#" role="button" @click.prevent="openModal('lpg')" title="Project Details"><i class="bx bx-info-circle"></i></a>
+                              <a href="https://www.lpgautogasbd.com/" title="LPG Owner's Association Web App" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/sarcp.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Alumni Association Website | Laravel |  AWS</p> 
+                            <div class="portfolio-links">
+                              <a href="https://cpscralumniassociation.org" target="_blank" rel="noopener" title="Alumni Association Website | Laravel"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/ryogas-app.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">SaaS based Smart Fuel Pump Solution | Laravel | LiveWire | RestAPIs</p> 
+                            <div class="portfolio-links">
+                              <a href="https://smet.ryogas.com/" title="SaaS based Smart Fuel Pump Solution | Laravel | LiveWire | RestAPIs" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/hilinkz.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">HiLinkz Ltd. | Company's Web Portfolio | Web Design</p> 
+                            <div class="portfolio-links">
+                              <a href="https://hilinkz.com" title="HiLinkz Ltd. | Company's Web Portfolio | Web Design" target="_blank" rel="noopener"><i class="bx bx-link" ></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/bueten.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">BUETian Entrepreneurs Network | Website design & development</p>
+                            <div class="portfolio-links">
+                              <a href="https://bueten.org" title="BUETian Entrepreneurs Network | Website design & development" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/ryogas-web.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">RyoGas Website | Website design & development | AWS</p>
+                            <div class="portfolio-links">
+                              <a href="https://www.ryogas.com/" title="RyoGas Website | Website design & development" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/shikkhabritti.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Shikkha Britti | Find Scholarships To Finance Your Study</p>
+                            <div class="portfolio-links">
+                              <a href="https://shikkhabritti.com" title="Shikkha Britti | Find Scholarships To Finance Your Study" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/impala.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Medical or Health | Dynamic Website | Impala | C-Panel</p>
+                            <div class="portfolio-links">
+                              <a href="https://impala.com.bd" title="Medical or Health | Dynamic Website | Impala" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/easyponno-laravel.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">eCommerce | Web application | EasyPonno</p>
+                            <div class="portfolio-links">
+                              <a href="https://easyponno.com" title="eCommerce | Web application | EasyPonno" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
+          </div>
+
+          <div class="portfolio-item" x-show="matches(['laravel'])" x-transition>
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/ukilmama.png" class="max-w-full h-auto w-full" alt="">
+                            <p class="text-center font-bold text-sm mt-2 px-1">Advocate & Law services | Web portfolio | Web Design</p>
+                            <div class="portfolio-links">
+                              <a href="https://ukilmama.com" title="Advocate & Law services | Web portfolio | Web Design" target="_blank" rel="noopener"><i class="bx bx-link"></i></a>
+                            </div>
+            </div>
           </div>
         </div>
 
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
-
-          <!-- Start recent projects -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-android filter-ai">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ina.jpg" class="img-fluid" alt="Ina — Your Personal AI Secretary app showcase">
-              <p class="text-center font-weight-bold">Ina | Your Personal AI Secretary | Flutter | Firebase</p>
-              <div class="portfolio-links">
-                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#projectDetailsModalIna" title="Project Details"><i class="bx bx-info-circle"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/csc-northsouth.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">NSU Cybersecurity Center | Training & Events Platform | Laravel</p>
-              <div class="portfolio-links">
-                <a href="https://csc.northsouth.edu" title="NSU Cybersecurity Center | Training & Events Platform | Laravel" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/lxmcq.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">LXMCQ | MCQ & Job Exam Preparation Platform | Laravel</p>
-              <div class="portfolio-links">
-                <a href="https://lxmcq.com" title="LXMCQ | MCQ & Job Exam Preparation Platform | Laravel" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/lxnotes.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">LXNotes | English Literature Study Notes Platform | Laravel</p>
-              <div class="portfolio-links">
-                <a href="https://lxnotes.com" title="LXNotes | English Literature Study Notes Platform | Laravel" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/xpose-fitness.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Xpose Fitness BD | Gym Management System | Laravel</p>
-              <div class="portfolio-links">
-                <a href="https://admin.xposefitnessbd.com" title="Xpose Fitness BD | Gym Management System | Laravel" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ryofin.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">RyoFin | Inventory, Sales & Accounting SaaS | Laravel</p>
-              <div class="portfolio-links">
-                <a href="https://www.ryofin.com" title="RyoFin | Inventory, Sales & Accounting SaaS | Laravel" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/knoterp.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">KnotERP | Field Sales CRM | Laravel | Mobile App</p>
-              <div class="portfolio-links">
-                <a href="https://www.knoterp.com" title="KnotERP | Field Sales CRM | Laravel | Mobile App" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-android">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/voteinfohub.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">VoteInfoHub | Election Voter Information App | Android</p>
-              <div class="portfolio-links">
-                <a href="https://play.google.com/store/apps/details?id=com.hilinkz.VoteInfoHub&hl=en" title="VoteInfoHub | Election Voter Information App | Android" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <!-- End recent projects -->
-
-          <!-- Start Laravel projects -->
-          <!-- Portfolio Item -->
-            <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-              <div class="portfolio-wrap">
-                <img src="assets/img/portfolio/e-rosid.png" class="img-fluid" alt="Portfolio Item">
-                <p class="text-center font-weight-bold">Inventory Management | POS | HRM | Accounting | e-Rosid | Laravel | MySQL</p>
-                <div class="portfolio-links">
-                  <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#projectDetailsModalERosid" title="Project Details"><i class="bx bx-info-circle"></i></a>
-                  <a href="https://www.e-rosid.com/" title="Project Link" target="_blank"><i class="bx bx-link"></i></a>
+        <!-- Alpine project modals -->
+        <div
+          x-show="modal"
+          x-cloak
+          class="site-modal-root"
+          @click.self="closeModal()"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div class="site-modal" x-show="modal" x-transition.opacity.scale.90>
+            <template x-if="modal === 'erosid'">
+              <div>
+                <div class="site-modal-header">
+                  <h5>e-Rosid — Inventory, POS &amp; ERP</h5>
+                  <button type="button" class="site-modal-close" @click="closeModal()" aria-label="Close">&times;</button>
+                </div>
+                <div class="site-modal-body">
+                  <p><strong>Project:</strong> Inventory Management | POS | e-Rosid</p>
+                  <p><strong>Description:</strong> A comprehensive web app that integrates inventory management, POS, HRM, accounting, and Payroll — built with Laravel and MySQL.</p>
+                  <p><strong>Features:</strong></p>
+                  <ul>
+                    <li>Inventory Management</li>
+                    <li>Point of Sale (POS)</li>
+                    <li>Human Resource Management (HRM)</li>
+                    <li>Accounting System</li>
+                    <li>Profit-loss &amp; tax calculation</li>
+                    <li>Payroll</li>
+                    <li>Audit</li>
+                    <li>Custom Invoice</li>
+                  </ul>
+                  <p><strong>Stack:</strong> Laravel, MySQL</p>
+                  <p><strong>Website:</strong> <a href="https://www.e-rosid.com" target="_blank" rel="noopener">www.e-rosid.com</a></p>
+                </div>
+                <div class="site-modal-footer">
+                  <button type="button" class="site-modal-btn" @click="closeModal()">Close</button>
                 </div>
               </div>
-            </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/lpgautogasbd.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">LPG Owner's Association Web Application | Laravel</p> 
-              <div class="portfolio-links">
-                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#projectDetailsModalLpgAss" title="Project Details"><i class="bx bx-info-circle"></i></a>
-                <a href="https://www.lpgautogasbd.com/" title="LPG Owner's Association Web App" target="_blank"><i class="bx bx-link"></i></a>
+            </template>
+            <template x-if="modal === 'lpg'">
+              <div>
+                <div class="site-modal-header">
+                  <h5>LPG Autogas Association Platform</h5>
+                  <button type="button" class="site-modal-close" @click="closeModal()" aria-label="Close">&times;</button>
+                </div>
+                <div class="site-modal-body">
+                  <p><strong>Project:</strong> Bangladesh LPG Autogas Station &amp; Conversion Workshop Owner’s Association</p>
+                  <p><strong>Description:</strong> Platform connecting LPG Autogas stations and conversion workshops nationwide — membership, fees, and policy-aligned operations.</p>
+                  <p><strong>Highlights:</strong></p>
+                  <ul>
+                    <li>Association web portfolio</li>
+                    <li>Member info &amp; membership fee management</li>
+                    <li>Government-policy aligned trade organization workflows</li>
+                    <li>Supports equipment standardization and business security</li>
+                  </ul>
+                  <p><strong>Stack:</strong> Laravel, MySQL</p>
+                  <p><strong>Website:</strong> <a href="https://www.lpgautogasbd.com" target="_blank" rel="noopener">www.lpgautogasbd.com</a></p>
+                </div>
+                <div class="site-modal-footer">
+                  <button type="button" class="site-modal-btn" @click="closeModal()">Close</button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/sarcp.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Alumni Association Website | Laravel | Bootstrap | AWS</p> 
-              <div class="portfolio-links">
-                <a href="https://cpscralumniassociation.org" target="_blank" title="Alumni Association Website | Laravel"><i class="bx bx-link"></i></a>
+            </template>
+            <template x-if="modal === 'ina'">
+              <div>
+                <div class="site-modal-header">
+                  <h5>Ina — Personal AI Secretary</h5>
+                  <button type="button" class="site-modal-close" @click="closeModal()" aria-label="Close">&times;</button>
+                </div>
+                <div class="site-modal-body">
+                  <p><strong>Project:</strong> Ina — Your Personal AI Secretary</p>
+                  <p><strong>Description:</strong> A voice-enabled AI assistant for tasks, reminders, and notes. Built as a weekend learning project exploring Flutter, Firebase, and AI-assisted productivity.</p>
+                  <p><strong>Features:</strong></p>
+                  <ul>
+                    <li>Centralized tasks, notes, and schedules</li>
+                    <li>Smart reminders</li>
+                    <li>Voice-enabled task creation</li>
+                    <li>AI-powered personal assistance</li>
+                  </ul>
+                  <p><strong>Stack:</strong> Flutter, Firebase</p>
+                  <p><strong>Platform:</strong> Android</p>
+                </div>
+                <div class="site-modal-footer">
+                  <button type="button" class="site-modal-btn" @click="closeModal()">Close</button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ryogas-app.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">SaaS based Smart Fuel Pump Solution | Laravel | LiveWire | RestAPIs</p> 
-              <div class="portfolio-links">
-                <a href="https://smet.ryogas.com/" title="SaaS based Smart Fuel Pump Solution | Laravel | LiveWire | RestAPIs" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/hilinkz.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">HiLinkz Ltd. | Company's Web Portfolio | Web Design</p> 
-              <div class="portfolio-links">
-                <a href="https://hilinkz.com" title="HiLinkz Ltd. | Company's Web Portfolio | Web Design" target="_blank"><i class="bx bx-link" ></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/bueten.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">BUETian Entrepreneurs Network | Website design & development</p>
-              <div class="portfolio-links">
-                <a href="https://bueten.org" title="BUETian Entrepreneurs Network | Website design & development" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ryogas-web.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">RyoGas Website | Website design & development | AWS</p>
-              <div class="portfolio-links">
-                <a href="https://www.ryogas.com/" title="RyoGas Website | Website design & development" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/shikkhabritti.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Shikkha Britti | Find Scholarships To Finance Your Study</p>
-              <div class="portfolio-links">
-                <a href="https://shikkhabritti.com" title="Shikkha Britti | Find Scholarships To Finance Your Study" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/impala.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Medical or Health | Dynamic Website | Impala | C-Panel</p>
-              <div class="portfolio-links">
-                <a href="https://impala.com.bd" title="Medical or Health | Dynamic Website | Impala" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/easyponno-laravel.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">eCommerce | Web application | EasyPonno</p>
-              <div class="portfolio-links">
-                <a href="https://easyponno.com" title="eCommerce | Web application | EasyPonno" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/ukilmama.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Advocate & Law services | Web portfolio | Web Design</p>
-              <div class="portfolio-links">
-                <a href="https://ukilmama.com" title="Advocate & Law services | Web portfolio | Web Design" target="_blank"><i class="bx bx-link"></i></a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/hbd.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Donation Collection Website | Web application</p>
-              <div class="portfolio-links">
-                <!-- <a href="" title="No longer avaliable in live"><i class="bx bx-link"></i></a> -->
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-laravel">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/tubebd.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Online video sharing platform | Laravel | Dynamic | Chunk Upload</p>
-              <div class="portfolio-links">
-                <!-- <a href="http://www.tubebd.club/" title="More Details"><i class="bx bx-link"></i></a> -->
-              </div>
-            </div>
-          </div>
-          <!-- END Laravel projects -->
-          <!-- Start PHP projects -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-php">
-            <div class="portfolio-wrap">
-              <img src="assets/img/portfolio/bondhu-trip.png" class="img-fluid" alt="">
-              <p class="text-center font-weight-bold">Tour Package Solution | Dynamic Website</p>
-              <div class="portfolio-links">
-                <!-- <a href="assets/img/portfolio/portfolio-1.jpg" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a> -->
-                <!-- <a href="http://www.bondhutrip.com/" title="More Details"><i class="bx bx-link"></i></a> -->
-              </div>
-            </div>
-          </div>
-
-          <!-- END PHP projects -->
-
-
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="projectDetailsModalERosid" tabindex="-1" aria-labelledby="projectDetailsModalERosidLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="projectDetailsModalERosidLabel">Project Details</h5>
-              </div>
-              <div class="modal-body">
-                <p><strong>Project Name:</strong> Inventory Management | POS | e-Rosid</p>
-                <p><strong>Description:</strong> A comprehensive web app that integrates inventory management, POS, HRM, accounting, and Payrool functionality, built using Laravel and MySQL.</p>
-                <p><strong>Features:</strong></p>
-                <ul>
-                  <li>Inventory Management</li>
-                  <li>Point of Sale (POS)</li>
-                  <li>Human Resource Management (HRM)</li>
-                  <li>Accounting System</li>
-                  <li>Profit-loss calculation</li>
-                  <li>Tax calculation</li>
-                  <li>Payrool</li>
-                  <li>Audit</li>
-                  <li>Custom Invoice</li>
-                </ul>
-                <p><strong>Technologies Used:</strong> Laravel, MySQL</p>
-                <p><strong>Website:</strong> <a href="https://www.e-rosid.com" target="_blank">www.e-rosid.com</a></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal fade" id="projectDetailsModalLpgAss" tabindex="-1" aria-labelledby="projectDetailsModalLpgAssLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="projectDetailsModalLpgAssLabel">Project Details</h5>
-              </div>
-              <div class="modal-body">
-                <p>
-                  <strong>Project Name:</strong> Bangladesh LPG Autogas Station & Conversion Workshop Owner’s Association
-                </p>
-                <p>
-                  <strong>Description:</strong> This unique platform connects all LPG Autogas stations and conversion workshops in Bangladesh. The project focuses on the standardization of equipment for accurate LPG Autogas supply, ensuring security and profitability for every Autogas station and conversion workshop owner.
-                </p>
-                <p>
-                  <strong>Key Highlights:</strong>
-                </p>
-                <ul>
-                  <li>Association web portfolio.</li>
-                  <li>Manage member's info.</li>
-                  <li>Manage membership fee.</li>
-                  <li>Operates under Government policy.</li>
-                  <li>Recognized as the only Government-approved trade organization for managing activities of all Autogas stations and conversion workshops nationwide.</li>
-                  <li>Supports the standardization of equipment and enhances business security and profitability.</li>
-                </ul>
-                <p>
-                  <strong>Technologies Used:</strong> Laravel, MySQL
-                </p>
-                <p><strong>Website:</strong> <a href="https://www.lpgautogasbd.com" target="_blank">www.lpgautogasbd.com</a></p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal fade" id="projectDetailsModalIna" tabindex="-1" aria-labelledby="projectDetailsModalInaLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="projectDetailsModalInaLabel">Project Details</h5>
-              </div>
-              <div class="modal-body">
-                <p><strong>Project Name:</strong> Ina — Your Personal AI Secretary</p>
-                <p><strong>Description:</strong> A voice-enabled AI assistant that helps manage tasks, reminders, and notes so users stay organized. Built as a weekend learning project to explore Flutter, Firebase, and AI-powered personal assistance.</p>
-                <p><strong>Features:</strong></p>
-                <ul>
-                  <li>Stay Organized — centralized tasks, notes, and schedules</li>
-                  <li>Smart Reminders — intelligent notifications for important events</li>
-                  <li>Voice Enabled — speak naturally to create and manage tasks</li>
-                  <li>AI Powered — personalized intelligent assistance</li>
-                </ul>
-                <p><strong>Technologies Used:</strong> Flutter, Firebase</p>
-                <p><strong>Platform:</strong> Available on Android</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
 
@@ -801,47 +813,47 @@
 
     <!-- ======= How I Engage ======= -->
     <section id="services" class="services">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>How I Engage</h2>
           <p>Bring me in when you need production systems — not just pages. Here’s how teams usually work with me.</p>
         </div>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="icon-box" data-aos="fade-up">
             <div class="icon"><i class="icofont-code"></i></div>
             <h4 class="title">Platform build &amp; architecture</h4>
             <p class="description">Greenfield or rebuild Laravel SaaS, ERP, and CRM systems with clear modules, tenancy-ready structure, and room to grow.</p>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
             <div class="icon"><i class="icofont-exchange"></i></div>
             <h4 class="title">API &amp; product integrations</h4>
             <p class="description">Design REST APIs and connect web, mobile, payments, and ops tools so your products talk to each other reliably.</p>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
             <div class="icon"><i class="icofont-database"></i></div>
             <h4 class="title">Data, cache &amp; performance</h4>
             <p class="description">Model MySQL/PostgreSQL correctly, add Redis where it matters, and keep dashboards and reports responsive under load.</p>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
             <div class="icon"><i class="icofont-clouds"></i></div>
             <h4 class="title">Cloud &amp; production delivery</h4>
             <p class="description">Deploy and operate on AWS or cPanel with Docker-friendly releases, SSL, environments, and practical ops hygiene.</p>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
             <div class="icon"><i class="icofont-ssl-security"></i></div>
             <h4 class="title">Security, auth &amp; 2FA</h4>
             <p class="description">Harden login flows, roles, sessions, and two-factor authentication so user and business data stay protected.</p>
           </div>
-          <div class="col-lg-4 col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
             <div class="icon"><i class="icofont-ui-chat"></i></div>
             <h4 class="title">AI assistants &amp; automation</h4>
             <p class="description">Ship chatbots and automated workflows that cut repetitive support and ops work — wired into your real systems.</p>
           </div>
         </div>
 
-        <p class="text-center mt-4 mb-0" data-aos="fade-up">
+        <p class="text-center mt-8 mb-0" data-aos="fade-up">
           Prefer a direct conversation? <a href="#contact" class="scrollto">Contact me</a> or ask the on-site assistant about fit for your project.
         </p>
 
@@ -850,48 +862,48 @@
 
     <!-- ======= Facts / Impact Section ======= -->
     <section id="facts" class="facts">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>Impact</h2>
           <p>Numbers that reflect years of shipping and supporting real systems — not vanity badges.</p>
         </div>
 
-        <div class="row no-gutters">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up">
+          <div class="md:flex md:items-stretch" data-aos="fade-up">
             <div class="count-box">
               <i class="icofont-simple-smile"></i>
               <span data-toggle="counter-up">10</span>
               <p><strong>Clients served</strong></p>
-              <p class="mb-0 small text-muted">Businesses and teams trusting production platforms</p>
+              <p class="mb-0 text-sm text-ink-muted">Businesses and teams trusting production platforms</p>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="100">
+          <div class="md:flex md:items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="count-box">
               <i class="icofont-document-folder"></i>
               <span data-toggle="counter-up">24</span>
               <p><strong>Projects delivered</strong></p>
-              <p class="mb-0 small text-muted">From build to production — SaaS, ERP, CRM, APIs &amp; apps</p>
+              <p class="mb-0 text-sm text-ink-muted">From build to production — SaaS, ERP, CRM, APIs &amp; apps</p>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="200">
+          <div class="md:flex md:items-stretch" data-aos="fade-up" data-aos-delay="200">
             <div class="count-box">
               <i class="icofont-clock-time"></i>
               <span data-toggle="counter-up">6</span>
               <p><strong>Years engineering</strong></p>
-              <p class="mb-0 small text-muted">Professional delivery from planning to production</p>
+              <p class="mb-0 text-sm text-ink-muted">Professional delivery from planning to production</p>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch" data-aos="fade-up" data-aos-delay="300">
+          <div class="md:flex md:items-stretch" data-aos="fade-up" data-aos-delay="300">
             <div class="count-box">
               <i class="icofont-code"></i>
               <span data-toggle="counter-up">8</span>
               <p><strong>Engineering domains</strong></p>
-              <p class="mb-0 small text-muted">Planning, UI, backend, data, cloud, mobile, security, AI</p>
+              <p class="mb-0 text-sm text-ink-muted">Planning, UI, backend, data, cloud, mobile, security, AI</p>
             </div>
           </div>
 
@@ -902,7 +914,7 @@
 
     <!-- ======= Testimonials Section ======= -->
     <!-- <section id="testimonials" class="testimonials section-bg">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>Testimonials</h2>
@@ -975,7 +987,7 @@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container">
+      <div class="site-container">
 
         <div class="section-title">
           <h2>Contact</h2>
@@ -1046,7 +1058,7 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
-    <div class="container">
+    <div class="site-container">
       <div class="copyright">
         &copy; Copyright <strong><span> Nahid Hassan</span></strong>
       </div>
@@ -1057,26 +1069,16 @@
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-  <!-- Vendor JS Files -->
+  <!-- Vendor JS -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
-  <script src="assets/vendor/counterup/counterup.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/venobox/venobox.min.js"></script>
-  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
   <script src="assets/vendor/typed.js/typed.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
 
-  <!-- Template Main JS File -->
+  <!-- Site JS -->
   <script src="assets/js/main.js"></script>
   <script src="assets/js/nahid-knowledge.js"></script>
   <script src="assets/js/chatbot.js"></script>
-  <!-- Bootstrap JS and Popper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
