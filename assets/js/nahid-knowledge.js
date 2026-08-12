@@ -161,25 +161,11 @@ window.NAHID_KNOWLEDGE = {
       url: "https://shikkhabritti.com"
     },
     {
-      name: "Impala",
-      tags: ["laravel", "cpanel"],
-      stack: "Dynamic website, cPanel",
-      blurb: "Medical / health dynamic website.",
-      url: "https://impala.com.bd"
-    },
-    {
       name: "EasyPonno",
       tags: ["laravel", "ecommerce"],
       stack: "Laravel",
       blurb: "eCommerce web application.",
       url: "https://easyponno.com"
-    },
-    {
-      name: "Ukilmama",
-      tags: ["laravel", "web"],
-      stack: "Web design",
-      blurb: "Advocate & law services web portfolio.",
-      url: "https://ukilmama.com"
     }
   ],
 
