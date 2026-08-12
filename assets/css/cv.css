@@ -40,6 +40,7 @@ body.cv-page {
   background: var(--cv-page-bg);
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
 }
 
 a {
@@ -252,7 +253,35 @@ a:hover {
 }
 
 .cv-lang li {
-  margin-bottom: 1mm;
+  display: grid;
+  grid-template-columns: 5.5mm 1fr;
+  gap: 2.2mm;
+  align-items: center;
+  margin-bottom: 2mm;
+}
+
+.cv-lang li:last-child {
+  margin-bottom: 0;
+}
+
+.cv-lang strong {
+  font-weight: 700;
+}
+
+.cv-lang-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.2mm;
+  height: 5.2mm;
+  border-radius: 50%;
+  font-size: 6pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--cv-accent-dark);
+  background: #ffffff;
+  border: 1px solid rgba(20, 157, 221, 0.35);
+  line-height: 1;
 }
 
 .cv-skill-tags {
@@ -274,6 +303,15 @@ a:hover {
   color: var(--cv-accent-dark);
   line-height: 1.15;
   white-space: nowrap;
+}
+
+.cv-interest-tags {
+  gap: 1.2mm;
+}
+
+.cv-interest-tags li {
+  font-size: 7pt;
+  padding: 1.2mm 2.2mm;
 }
 
 .cv-side-portfolio {
@@ -522,15 +560,19 @@ a:hover {
   font-size: 10pt;
 }
 
-/* Print */
+/* Print — force light paper; avoid gray page chrome / dark-mode bleed */
 @page {
   size: A4;
   margin: 0;
+  background: #ffffff;
 }
 
 @media print {
+  html,
   body.cv-page {
-    background: #fff;
+    background: #ffffff !important;
+    color: #1a2b3c !important;
+    color-scheme: light !important;
   }
 
   .cv-toolbar {
@@ -538,8 +580,10 @@ a:hover {
   }
 
   .cv-preview {
-    padding: 0;
+    padding: 0 !important;
+    margin: 0 !important;
     display: block;
+    background: #ffffff !important;
   }
 
   .cv-sheet {
@@ -547,7 +591,21 @@ a:hover {
     height: 297mm;
     max-width: none;
     margin: 0;
-    box-shadow: none;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-side {
+    background: #e8eef3 !important;
+    color: #1a2b3c !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-main {
+    background: #ffffff !important;
   }
 
   a {
