@@ -187,109 +187,104 @@ window.NAHID_KNOWLEDGE = {
     {
       id: "about",
       keywords: ["who", "about", "yourself", "bio", "introduce", "nahid", "background", "profile", "tell me about you"],
-      answer:
-        "I'm Md Nahid Hassan, Sr. Software Engineer at HiLinkz with 6+ years of experience. I turn product ideas into production systems — ERP, CRM, and SaaS — covering planning, UI, Laravel APIs, databases, Redis, AWS/Docker, security/2FA, and AI automation."
+      answer: null // formatted in chatbot
     },
     {
       id: "experience",
       keywords: ["experience", "years", "senior", "career", "hilinkz", "job", "work history", "resume", "role"],
       answer:
-        "6+ years professional experience. Since 2020 I'm Sr. Software Engineer at HiLinkz — owning end-to-end ERP/CRM/SaaS delivery, Laravel/Lumen/Flask APIs, MySQL & PostgreSQL, Redis, AWS/cPanel deploys, 2FA, and AI automation. Earlier (2018–2020) I freelanced and shipped full-stack PHP/Laravel apps."
+        "## Experience\n\n**6+ years** building production software.\n\n- **2020–present** — Sr. Software Engineer at **HiLinkz**: ERP, CRM, and SaaS end-to-end\n- **Focus** — Laravel / Lumen / Flask APIs, MySQL & PostgreSQL, Redis, AWS / cPanel, 2FA, AI automation\n- **2018–2020** — Freelance full-stack PHP / Laravel delivery"
     },
     {
       id: "stack",
       keywords: ["stack", "skills", "technologies", "tech stack", "tools", "what do you use", "programming"],
-      answer:
-        "Core stack: Laravel, PHP, Lumen, React.js, Tailwind CSS, Flutter, Firebase, JavaScript, MySQL, PostgreSQL, Redis, REST APIs, AWS, Docker, cPanel. Also AI chatbots/LLMs, SMTP, push notifications, CDN, and 2FA/auth. Open the Skills tree on this site for the full map."
+      answer: null // formatted in chatbot
     },
     {
       id: "laravel",
       keywords: ["laravel only", "prefer laravel", "laravel experience", "laravel skill"],
       answer:
-        "Laravel is my primary backend framework. I use it for SaaS, ERP, CRM, association platforms, Livewire UIs, and REST APIs — often with MySQL/PostgreSQL, Redis, and AWS. Ask “What are your Laravel projects?” for the portfolio list."
+        "## Laravel\n\n**Laravel** is Nahid’s primary backend framework.\n\nUsed for:\n- SaaS & ERP platforms\n- CRM and association systems\n- Livewire UIs & REST APIs\n\nOften paired with **MySQL / PostgreSQL**, **Redis**, and **AWS**.\n\nAsk **What are your Laravel projects?** for the full list."
     },
     {
       id: "journey",
       keywords: ["journey", "process", "how you work", "pipeline", "engineering tree", "workflow", "skill tree"],
-      answer:
-        "Open the Skills section for my engineering tree: Planning → Front-End → Back-End → Databases → DevOps & Cloud → Mobile → Security & Comms → AI & Automation. Scroll and each branch reveals production tools I use."
+      answer: null // uses stack formatter
     },
     {
       id: "apis",
       keywords: ["api", "rest", "restapi", "restful", "endpoint", "lumen", "flask"],
       answer:
-        "I design REST APIs with Laravel, Lumen, and Flask for web, mobile, and integrations — auth, clean contracts, and multi-client platforms."
+        "## REST APIs\n\nDesigns and ships APIs with:\n- **Laravel**\n- **Lumen**\n- **Flask**\n\nBuilt for web, mobile, and integrations — auth, clear contracts, and multi-client platforms."
     },
     {
       id: "database",
       keywords: ["database", "mysql", "postgresql", "postgres", "schema", "sql"],
       answer:
-        "I model and optimize MySQL and PostgreSQL for ERP, CRM, and SaaS — schema design, indexing, migrations, and query performance."
+        "## Databases\n\nWorks with **MySQL** and **PostgreSQL** for ERP, CRM, and SaaS:\n- Schema design\n- Indexing & query performance\n- Migrations & data integrity"
     },
     {
       id: "redis",
       keywords: ["redis", "cache", "caching", "queue"],
       answer:
-        "I use Redis for caching, sessions, and queue-backed workloads so SaaS and high-traffic apps stay responsive."
+        "## Redis\n\nUses **Redis** for:\n- Caching\n- Sessions\n- Queue-backed workloads\n\nHelps SaaS and high-traffic apps stay fast and responsive."
     },
     {
       id: "aws",
       keywords: ["aws", "cloud", "deploy", "deployment", "docker", "server", "hosting", "cpanel"],
       answer:
-        "I deploy and operate apps on AWS and cPanel — Docker-friendly delivery, SSL, environments, backups, and production hygiene."
+        "## Cloud & deployment\n\nDeploys and operates apps on:\n- **AWS**\n- **cPanel** / Linux servers\n\nIncluding Docker-friendly delivery, SSL, environments, backups, and production hygiene."
     },
     {
       id: "security",
       keywords: ["security", "2fa", "auth", "authentication", "secure", "ssl"],
       answer:
-        "I implement practical security: authentication, 2FA, secure sessions, HTTPS/SSL, roles/ACL, and hardening on production systems."
+        "## Security\n\nPractical production security:\n- Authentication & **2FA**\n- Secure sessions\n- HTTPS / SSL\n- Roles / ACL\n- App hardening"
     },
     {
       id: "ai",
       keywords: ["ai", "chatbot", "llm", "automation", "openai", "assistant", "voice"],
       answer:
-        "I build AI chatbots and automation wired into real systems. Personal project: Ina — a Flutter + Firebase voice-enabled AI secretary. This site also has a free on-site knowledge guide (no paid AI API)."
+        "## AI & automation\n\nBuilds AI chatbots and workflow automation wired into real systems.\n\n- **Ina** — personal voice-enabled AI secretary (Flutter + Firebase)\n- On-site guide on this portfolio for quick answers about Nahid"
     },
     {
       id: "flutter",
       keywords: ["flutter", "dart", "mobile app", "android app"],
       answer:
-        "I build mobile apps with Flutter, Dart, and Firebase (FCM, auth, backend sync). Examples: Ina (AI secretary) and Android work like VoteInfoHub. Laravel REST APIs often power the backend."
+        "## Mobile\n\nBuilds apps with **Flutter**, **Dart**, and **Firebase** (FCM, auth, sync).\n\nExamples:\n- **Ina** — AI secretary\n- **VoteInfoHub** — Android voter info app\n\nLaravel REST APIs often power the backend."
     },
     {
       id: "projects",
       keywords: ["project", "projects", "portfolio", "built", "work sample", "showcase", "apps you built", "what have you built"],
-      answer: null // filled dynamically from projects[]
+      answer: null
     },
     {
       id: "ina",
       keywords: ["ina", "secretary", "personal ai"],
       answer:
-        "Ina is my personal AI secretary — voice-enabled tasks, reminders, and notes. Built with Flutter and Firebase as a weekend learning project. See Portfolio for details."
+        "## Ina\n\nPersonal **AI secretary** — voice-enabled tasks, reminders, and notes.\n\n- **Stack:** Flutter + Firebase\n- Built as a learning / weekend project\n\nOpen **Portfolio** on this page for more."
     },
     {
       id: "impact",
       keywords: ["impact", "clients", "numbers", "stats", "metrics", "how many"],
-      answer:
-        "Impact snapshot on this site: 10 clients served, 24 projects delivered, 6 years engineering, across 8 domains (planning, UI, backend, data, cloud, mobile, security, AI)."
+      answer: null
     },
     {
       id: "engage",
       keywords: ["engage", "hire", "services", "how to work with", "consult", "available for", "collaboration"],
       answer:
-        "Teams usually bring me in for platform/architecture builds, API integrations, data/cache/performance, cloud delivery, security/2FA, or AI assistants & automation. Email is best for async collaboration across timezones."
+        "## How teams work with Nahid\n\nCommon engagements:\n- Platform / architecture builds\n- API integrations\n- Data, cache & performance\n- Cloud delivery\n- Security / 2FA\n- AI assistants & automation\n\n**Email** works best for async collaboration across timezones."
     },
     {
       id: "contact",
       keywords: ["contact", "email", "phone", "reach", "whatsapp", "linkedin", "github", "timezone"],
-      answer:
-        "Email: nhassan213@gmail.com · Phone/WhatsApp: (+88) 01817-098032 · Location: Manikganj, Dhaka, Bangladesh · Timezone: UTC+6 (BST). Also LinkedIn and GitHub linked in Contact / sidebar."
+      answer: null
     },
     {
       id: "education",
       keywords: ["education", "university", "degree", "nsu", "study", "graduate", "north south"],
       answer:
-        "BSc in Computer Science and Engineering from North South University (2015–2019). Earlier: HSC at Govt. Devendra College, Manikganj; SSC at Manikganj Govt. High School."
+        "## Education\n\n- **BSc** in Computer Science and Engineering — **North South University** (2015–2019)\n- **HSC** — Govt. Devendra College, Manikganj\n- **SSC** — Manikganj Govt. High School"
     }
   ],
 
@@ -302,5 +297,5 @@ window.NAHID_KNOWLEDGE = {
   ],
 
   fallback:
-    "I know Nahid's full profile from this site — experience, skills, Laravel/Flutter/AI projects, resume, impact numbers, and contact. Try: “What are your Laravel projects?”, “Tell me about RyoFin”, “Do you use Redis?”, or “How can I contact you?”"
+    "I can help with Nahid’s profile from this site.\n\nTry asking:\n- **What are your Laravel projects?**\n- **Tell me about RyoFin**\n- **Do you use Redis?**\n- **How can I contact you?**"
 };
