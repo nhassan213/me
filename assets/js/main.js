@@ -27,11 +27,11 @@
 
     var script = [
       { type: 'cmd', text: 'whoami' },
-      { type: 'out', text: 'Md Nahid Hassan — Full Stack + AI Engineer' },
+      { type: 'out', text: 'Md Nahid Hassan — Sr. Software Engineer @ HiLinkz' },
       { type: 'cmd', text: 'cat stack.txt' },
-      { type: 'out', text: 'Laravel · Flutter · Firebase · AI Automation' },
-      { type: 'cmd', text: 'ls ~/projects' },
-      { type: 'out', text: 'Ina  KnotERP  RyoFin  LXMCQ  …' }
+      { type: 'out', text: 'Laravel · React · APIs · Redis · AWS · Flutter · AI' },
+      { type: 'cmd', text: 'ls ~/systems' },
+      { type: 'out', text: 'planning  ui  backend  cache  deploy  security' }
     ];
 
     var i = 0;
@@ -116,11 +116,23 @@
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var ctx = canvas.getContext('2d');
     var skills = [
-      'Laravel', 'Flutter', 'PHP', 'JavaScript', 'MySQL', 'AWS',
-      'Firebase', 'Python', 'AI Chatbots', 'Bootstrap', 'WordPress',
-      'PostgreSQL', 'REST API', 'Ember.js', 'HTML/CSS', 'cPanel'
+      { label: 'Laravel', icon: 'bx bx-code-curly', accent: true },
+      { label: 'React.js', icon: 'bx bxl-react', accent: true },
+      { label: 'Flutter', icon: 'bx bx-mobile', accent: true },
+      { label: 'AWS', icon: 'bx bxl-aws', accent: true },
+      { label: 'Docker', icon: 'bx bxl-docker' },
+      { label: 'Redis', icon: 'bx bx-bolt', accent: true },
+      { label: 'MySQL', icon: 'bx bx-data' },
+      { label: 'PostgreSQL', icon: 'bx bx-cylinder' },
+      { label: 'PHP', icon: 'bx bxl-php' },
+      { label: 'JavaScript', icon: 'bx bxl-javascript' },
+      { label: 'Firebase', icon: 'bx bx-cloud' },
+      { label: 'REST APIs', icon: 'bx bx-transfer' },
+      { label: '2FA', icon: 'bx bx-shield' },
+      { label: 'CDN', icon: 'bx bx-globe' },
+      { label: 'AI Chatbots', icon: 'bx bx-bot', accent: true },
+      { label: 'GitHub', icon: 'bx bxl-github' }
     ];
-    var accentSkills = { Laravel: 1, Flutter: 1, 'AI Chatbots': 1, AWS: 1 };
     var nodes = [];
     var chips = [];
     var raf = null;
@@ -161,18 +173,16 @@
       var isMobile = w < 768;
       var list = isMobile ? skills.slice(0, 8) : skills;
 
-      list.forEach(function(label, index) {
+      list.forEach(function(skill, index) {
         var el = document.createElement('span');
-        el.className = 'hero-skill-chip' + (accentSkills[label] ? ' accent' : '');
-        el.textContent = label;
+        el.className = 'hero-skill-chip' + (skill.accent ? ' accent' : '');
+        el.innerHTML = '<i class="' + skill.icon + '" aria-hidden="true"></i><span>' + skill.label + '</span>';
         orbit.appendChild(el);
 
         // Keep chips mostly on the right / edges so left content stays clear
         var sideBias = isMobile ? 0.35 : 0.48;
         var x = (sideBias + Math.random() * (1 - sideBias - 0.05)) * w;
-        var y = (0.08 + Math.random() * 0.78) * h;
-        // Avoid stacking on top of each other roughly
-        y = ((index * 0.11) % 0.82 + 0.08) * h + (Math.random() * 24 - 12);
+        var y = ((index * 0.11) % 0.82 + 0.08) * h + (Math.random() * 24 - 12);
 
         chips.push({
           el: el,
@@ -397,5 +407,46 @@
     duration: 1000,
     easing: "ease-in-out-back"
   });
+
+  // Skills tree scroll reveal
+  (function initSkillTree() {
+    var tree = document.getElementById('skill-tree');
+    if (!tree) return;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var nodes = tree.querySelectorAll('.skill-tree-reveal');
+
+    if (reduceMotion) {
+      tree.classList.add('is-active');
+      nodes.forEach(function(node) { node.classList.add('is-visible'); });
+      return;
+    }
+
+    var treeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          tree.classList.add('is-active');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    treeObserver.observe(tree);
+
+    var nodeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var delay = (parseInt(el.getAttribute('data-reveal'), 10) || 0) * 90;
+        setTimeout(function() {
+          el.classList.add('is-visible');
+        }, delay);
+        nodeObserver.unobserve(el);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -8% 0px' });
+
+    nodes.forEach(function(node) {
+      nodeObserver.observe(node);
+    });
+  })();
 
 })(jQuery);
