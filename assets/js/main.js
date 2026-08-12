@@ -88,6 +88,166 @@
     runNext();
   })();
 
+  // Sidebar glass theme: dark on hero, light on white sections
+  (function initHeaderTheme() {
+    var header = document.getElementById('header');
+    var footer = document.getElementById('footer');
+    var hero = document.getElementById('hero');
+    if (!header || !hero) return;
+
+    function syncTheme() {
+      var heroBottom = hero.getBoundingClientRect().bottom;
+      var onLight = heroBottom < 120;
+      header.classList.toggle('header-light', onLight);
+      if (footer) footer.classList.toggle('footer-light', onLight);
+    }
+
+    syncTheme();
+    $(window).on('scroll resize', syncTheme);
+  })();
+
+  // Hero skills motion background
+  (function initHeroSkillsBg() {
+    var hero = document.getElementById('hero');
+    var canvas = document.getElementById('hero-skills-canvas');
+    var orbit = document.getElementById('hero-skill-orbit');
+    if (!hero || !canvas || !orbit) return;
+
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var ctx = canvas.getContext('2d');
+    var skills = [
+      'Laravel', 'Flutter', 'PHP', 'JavaScript', 'MySQL', 'AWS',
+      'Firebase', 'Python', 'AI Chatbots', 'Bootstrap', 'WordPress',
+      'PostgreSQL', 'REST API', 'Ember.js', 'HTML/CSS', 'cPanel'
+    ];
+    var accentSkills = { Laravel: 1, Flutter: 1, 'AI Chatbots': 1, AWS: 1 };
+    var nodes = [];
+    var chips = [];
+    var raf = null;
+    var w = 0;
+    var h = 0;
+
+    function resize() {
+      var rect = hero.getBoundingClientRect();
+      w = Math.max(320, Math.floor(rect.width));
+      h = Math.max(480, Math.floor(rect.height));
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createNodes() {
+      var count = Math.min(55, Math.floor((w * h) / 18000));
+      nodes = [];
+      for (var i = 0; i < count; i++) {
+        nodes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: 1.2 + Math.random() * 1.8
+        });
+      }
+    }
+
+    function createChips() {
+      orbit.innerHTML = '';
+      chips = [];
+      if (reduceMotion) return;
+
+      var isMobile = w < 768;
+      var list = isMobile ? skills.slice(0, 8) : skills;
+
+      list.forEach(function(label, index) {
+        var el = document.createElement('span');
+        el.className = 'hero-skill-chip' + (accentSkills[label] ? ' accent' : '');
+        el.textContent = label;
+        orbit.appendChild(el);
+
+        // Keep chips mostly on the right / edges so left content stays clear
+        var sideBias = isMobile ? 0.35 : 0.48;
+        var x = (sideBias + Math.random() * (1 - sideBias - 0.05)) * w;
+        var y = (0.08 + Math.random() * 0.78) * h;
+        // Avoid stacking on top of each other roughly
+        y = ((index * 0.11) % 0.82 + 0.08) * h + (Math.random() * 24 - 12);
+
+        chips.push({
+          el: el,
+          x: x,
+          y: Math.max(40, Math.min(h - 40, y)),
+          ox: x,
+          oy: Math.max(40, Math.min(h - 40, y)),
+          ampX: 18 + Math.random() * 28,
+          ampY: 14 + Math.random() * 26,
+          speed: 0.00035 + Math.random() * 0.00055,
+          phase: Math.random() * Math.PI * 2
+        });
+        el.style.transform = 'translate(' + x + 'px,' + Math.max(40, Math.min(h - 40, y)) + 'px)';
+      });
+    }
+
+    function draw(time) {
+      ctx.clearRect(0, 0, w, h);
+
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        if (!reduceMotion) {
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < 0 || n.x > w) n.vx *= -1;
+          if (n.y < 0 || n.y > h) n.vy *= -1;
+        }
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(100, 190, 235, 0.55)';
+        ctx.fill();
+
+        for (var j = i + 1; j < nodes.length; j++) {
+          var m = nodes[j];
+          var dx = n.x - m.x;
+          var dy = n.y - m.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.strokeStyle = 'rgba(20, 157, 221,' + (0.22 * (1 - dist / 130)) + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      if (!reduceMotion) {
+        chips.forEach(function(chip) {
+          var nx = chip.ox + Math.sin(time * chip.speed + chip.phase) * chip.ampX;
+          var ny = chip.oy + Math.cos(time * chip.speed * 1.15 + chip.phase) * chip.ampY;
+          chip.el.style.transform = 'translate(' + nx + 'px,' + ny + 'px)';
+        });
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    function boot() {
+      resize();
+      createNodes();
+      createChips();
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(draw);
+    }
+
+    boot();
+    window.addEventListener('resize', function() {
+      clearTimeout(window.__heroSkillsResize);
+      window.__heroSkillsResize = setTimeout(boot, 150);
+    });
+  })();
+
   // Smooth scroll for the navigation menu and links with .scrollto classes
   $(document).on('click', '.nav-menu a, .scrollto', function(e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {

@@ -69,7 +69,11 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 9997;
   transition: all 0.5s;
   padding: 0 15px;
-  background: #040b14;
+  background: rgba(8, 18, 32, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.18);
   overflow-y: auto;
 }
 
@@ -77,7 +81,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 15px auto;
   display: block;
   width: 120px;
-  border: 8px solid #2c2f3f;
+  border: 8px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 #header .profile h1 {
@@ -98,7 +103,8 @@ h1, h2, h3, h4, h5, h6 {
 #header .profile .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #212431;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #fff;
   line-height: 1;
   padding: 8px 0;
@@ -108,12 +114,77 @@ h1, h2, h3, h4, h5, h6 {
   width: 36px;
   height: 36px;
   transition: 0.3s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 #header .profile .social-links a:hover {
-  background: #149ddd;
+  background: rgba(20, 157, 221, 0.85);
+  border-color: rgba(20, 157, 221, 0.9);
   color: #fff;
   text-decoration: none;
+}
+
+/* Light glass sidebar over white page sections */
+#header.header-light {
+  background: rgba(255, 255, 255, 0.72);
+  border-right: 1px solid rgba(15, 40, 70, 0.08);
+  box-shadow: 8px 0 28px rgba(15, 40, 70, 0.08);
+}
+
+#header.header-light .profile img {
+  border-color: rgba(20, 157, 221, 0.18);
+  box-shadow: 0 8px 20px rgba(15, 40, 70, 0.12);
+}
+
+#header.header-light .profile h1 a,
+#header.header-light .profile h1 a:hover {
+  color: #17324d;
+}
+
+#header.header-light .profile .profile-role {
+  color: #149ddd !important;
+}
+
+#header.header-light .profile .social-links a {
+  background: rgba(20, 157, 221, 0.08);
+  border-color: rgba(20, 157, 221, 0.18);
+  color: #17324d;
+}
+
+#header.header-light .profile .social-links a:hover {
+  background: #149ddd;
+  border-color: #149ddd;
+  color: #fff;
+}
+
+#header.header-light .nav-menu a {
+  color: #5a6a7a;
+}
+
+#header.header-light .nav-menu a i {
+  color: #8a9aab;
+}
+
+#header.header-light .nav-menu a:hover,
+#header.header-light .nav-menu .active > a,
+#header.header-light .nav-menu li:hover > a {
+  color: #0f3d5c;
+  background: rgba(20, 157, 221, 0.12);
+  border-color: rgba(20, 157, 221, 0.22);
+}
+
+#header.header-light .nav-menu a:hover i,
+#header.header-light .nav-menu .active > a i,
+#header.header-light .nav-menu li:hover > a i {
+  color: #149ddd;
+}
+
+#footer.footer-light {
+  background: rgba(255, 255, 255, 0.78);
+  color: #5a6a7a;
+  border-top: 1px solid rgba(15, 40, 70, 0.08);
+  border-right: 1px solid rgba(15, 40, 70, 0.08);
 }
 
 #main {
@@ -156,6 +227,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 8px;
   transition: 0.3s;
   font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid transparent;
 }
 
 .nav-menu a i {
@@ -167,6 +240,10 @@ h1, h2, h3, h4, h5, h6 {
 .nav-menu a:hover, .nav-menu .active > a, .nav-menu li:hover > a {
   text-decoration: none;
   color: #fff;
+  background: rgba(20, 157, 221, 0.18);
+  border-color: rgba(20, 157, 221, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .nav-menu a:hover i, .nav-menu .active > a i, .nav-menu li:hover > a i {
@@ -214,13 +291,71 @@ h1, h2, h3, h4, h5, h6 {
   height: auto;
   padding: 90px 0 70px;
   position: relative;
-  background: url("../img/nahid-bg.jpg") top center;
-  background-size: cover;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(20, 157, 221, 0.28), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 80%, rgba(15, 90, 140, 0.35), transparent 50%),
+    linear-gradient(145deg, #050d18 0%, #0a1a2e 45%, #071422 100%);
+  background-size: 140% 140%, 120% 120%, 100% 100%;
+  animation: heroBgDrift 22s ease-in-out infinite alternate;
+}
+
+@keyframes heroBgDrift {
+  0% { background-position: 0% 40%, 100% 60%, 0 0; }
+  100% { background-position: 80% 20%, 20% 90%, 0 0; }
+}
+
+.hero-motion-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#hero-skills-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hero-skill-orbit {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-skill-chip {
+  position: absolute;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: rgba(230, 242, 255, 0.92);
+  background: rgba(20, 157, 221, 0.14);
+  border: 1px solid rgba(20, 157, 221, 0.35);
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  will-change: transform;
+  user-select: none;
+}
+
+.hero-skill-chip.accent {
+  background: rgba(20, 157, 221, 0.28);
+  border-color: rgba(100, 200, 255, 0.55);
+  color: #fff;
 }
 
 #hero:before {
   content: "";
-  background: rgba(5, 13, 24, 0.45);
+  background: linear-gradient(
+    105deg,
+    rgba(5, 13, 24, 0.72) 0%,
+    rgba(5, 13, 24, 0.45) 42%,
+    rgba(5, 13, 24, 0.28) 100%
+  );
   position: absolute;
   bottom: 0;
   top: 0;
@@ -410,12 +545,6 @@ h1, h2, h3, h4, h5, h6 {
   50% { transform: translateX(-50%) translateY(8px); }
 }
 
-@media (min-width: 1024px) {
-  #hero {
-    background-attachment: fixed;
-  }
-}
-
 @media (max-width: 768px) {
   #hero h1 {
     font-size: 28px;
@@ -436,6 +565,19 @@ h1, h2, h3, h4, h5, h6 {
   }
   .hero-scroll {
     bottom: 16px;
+  }
+  .hero-skill-chip {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hero {
+    animation: none;
+  }
+  .hero-skill-chip {
+    display: none;
   }
 }
 
@@ -1221,7 +1363,11 @@ section {
   bottom: 0;
   width: 300px;
   z-index: 9999;
-  background: #040b14;
+  background: rgba(8, 18, 32, 0.45);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #footer .copyright {
