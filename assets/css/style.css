@@ -210,14 +210,17 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
+  padding: 90px 0 70px;
+  position: relative;
   background: url("../img/nahid-bg.jpg") top center;
   background-size: cover;
 }
 
 #hero:before {
   content: "";
-  background: rgba(5, 13, 24, 0.3);
+  background: rgba(5, 13, 24, 0.45);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -230,6 +233,9 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 2;
   min-width: 300px;
+  max-width: 640px;
+  padding: 0 20px;
+  text-align: left;
 }
 
 #hero h1 {
@@ -240,18 +246,168 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
-#hero p {
+#hero p.hero-tagline {
   color: #fff;
-  margin-bottom: 50px;
+  margin-bottom: 22px;
   font-size: 26px;
   font-family: "Poppins", sans-serif;
 }
 
-#hero p span {
+#hero p.hero-tagline span {
   color: #fff;
   padding-bottom: 4px;
   letter-spacing: 1px;
   border-bottom: 3px solid #149ddd;
+}
+
+/* Hero terminal */
+.hero-terminal {
+  background: rgba(8, 16, 28, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  margin-bottom: 26px;
+  backdrop-filter: blur(6px);
+  font-family: "SF Mono", "Fira Code", "Consolas", "Menlo", monospace;
+}
+
+.hero-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero-terminal-bar .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hero-terminal-bar .dot.red { background: #ff5f56; }
+.hero-terminal-bar .dot.yellow { background: #ffbd2e; }
+.hero-terminal-bar .dot.green { background: #27c93f; }
+
+.hero-terminal-bar em {
+  margin-left: 8px;
+  font-style: normal;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero-terminal-body {
+  padding: 14px 16px 16px;
+  min-height: 118px;
+  color: #d7e3f4;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.hero-terminal-body .term-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.hero-terminal-body .term-prompt {
+  color: #27c93f;
+  font-weight: 600;
+}
+
+.hero-terminal-body .term-cmd {
+  color: #e8f1ff;
+}
+
+.hero-terminal-body .term-out {
+  color: #9ec9ef;
+  display: block;
+  padding-left: 0;
+  margin: 2px 0 10px;
+}
+
+.hero-terminal-body .term-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  background: #149ddd;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: heroBlink 0.9s steps(1) infinite;
+}
+
+@keyframes heroBlink {
+  50% { opacity: 0; }
+}
+
+/* Hero CTAs */
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+}
+
+.btn-hero-primary {
+  background: #149ddd;
+  color: #fff !important;
+  border: 2px solid #149ddd;
+}
+
+.btn-hero-primary:hover {
+  background: #0f8bc4;
+  border-color: #0f8bc4;
+  color: #fff !important;
+}
+
+.btn-hero-outline {
+  background: transparent;
+  color: #fff !important;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+}
+
+.btn-hero-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #fff;
+  color: #fff !important;
+}
+
+/* Scroll cue */
+.hero-scroll {
+  position: absolute;
+  z-index: 2;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 28px;
+  opacity: 0.85;
+  animation: heroBounce 1.8s ease-in-out infinite;
+}
+
+.hero-scroll:hover {
+  color: #149ddd;
+  opacity: 1;
+}
+
+@keyframes heroBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
 }
 
 @media (min-width: 1024px) {
@@ -265,10 +421,21 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 28px;
     line-height: 36px;
   }
-  #hero h2 {
-    font-size: 18px;
+  #hero p.hero-tagline {
+    font-size: 16px;
     line-height: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 16px;
+  }
+  .hero-terminal-body {
+    font-size: 12.5px;
+    min-height: 108px;
+  }
+  .btn-hero {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  .hero-scroll {
+    bottom: 16px;
   }
 }
 

@@ -20,6 +20,74 @@
     });
   }
 
+  // Hero terminal intro
+  (function initHeroTerminal() {
+    var body = document.getElementById('hero-terminal-body');
+    if (!body) return;
+
+    var script = [
+      { type: 'cmd', text: 'whoami' },
+      { type: 'out', text: 'Md Nahid Hassan — Full Stack + AI Engineer' },
+      { type: 'cmd', text: 'cat stack.txt' },
+      { type: 'out', text: 'Laravel · Flutter · Firebase · AI Automation' },
+      { type: 'cmd', text: 'ls ~/projects' },
+      { type: 'out', text: 'Ina  KnotERP  RyoFin  LXMCQ  …' }
+    ];
+
+    var i = 0;
+    var cursor = document.createElement('span');
+    cursor.className = 'term-cursor';
+
+    function appendPromptLine() {
+      var line = document.createElement('div');
+      line.className = 'term-line';
+      line.innerHTML = '<span class="term-prompt">$</span> <span class="term-cmd"></span>';
+      body.appendChild(line);
+      line.appendChild(cursor);
+      return line.querySelector('.term-cmd');
+    }
+
+    function typeText(el, text, done) {
+      var n = 0;
+      var timer = setInterval(function() {
+        el.textContent = text.slice(0, ++n);
+        if (n >= text.length) {
+          clearInterval(timer);
+          done();
+        }
+      }, 28);
+    }
+
+    function runNext() {
+      if (i >= script.length) {
+        // Keep a blinking cursor on a fresh prompt
+        var idle = document.createElement('div');
+        idle.className = 'term-line';
+        idle.innerHTML = '<span class="term-prompt">$</span> ';
+        idle.appendChild(cursor);
+        body.appendChild(idle);
+        return;
+      }
+
+      var step = script[i++];
+      if (step.type === 'cmd') {
+        var cmdEl = appendPromptLine();
+        typeText(cmdEl, step.text, function() {
+          cursor.remove();
+          setTimeout(runNext, 320);
+        });
+      } else {
+        var out = document.createElement('div');
+        out.className = 'term-out';
+        out.textContent = step.text;
+        body.appendChild(out);
+        setTimeout(runNext, 420);
+      }
+    }
+
+    runNext();
+  })();
+
   // Smooth scroll for the navigation menu and links with .scrollto classes
   $(document).on('click', '.nav-menu a, .scrollto', function(e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
