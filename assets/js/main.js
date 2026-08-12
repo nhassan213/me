@@ -339,10 +339,35 @@
     return false;
   });
 
-  // jQuery counterUp
-  $('[data-toggle="counter-up"]').counterUp({
-    delay: 10,
-    time: 1000
+  // Impact counters (IntersectionObserver — more reliable than counterUp + AOS)
+  document.querySelectorAll('[data-toggle="counter-up"]').forEach(function(el) {
+    var target = parseInt((el.textContent || '').replace(/[^\d]/g, ''), 10) || 0;
+    el.textContent = '0';
+    var started = false;
+
+    if (!('IntersectionObserver' in window)) {
+      el.textContent = String(target);
+      return;
+    }
+
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting || started) return;
+        started = true;
+        io.unobserve(el);
+        var start = performance.now();
+        var duration = 1000;
+        function tick(now) {
+          var p = Math.min(1, (now - start) / duration);
+          el.textContent = String(Math.floor(target * p));
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = String(target);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.25 });
+
+    io.observe(el.closest('.count-box') || el);
   });
 
   // Skills section
