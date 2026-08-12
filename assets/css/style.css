@@ -1184,6 +1184,17 @@ section {
   padding-bottom: 0;
 }
 
+.resume-download {
+  padding-top: 8px;
+}
+
+.resume-download-text {
+  margin: 0 0 14px;
+  color: #445566;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 .resume .resume-item::before {
   content: "";
   position: absolute;
