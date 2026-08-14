@@ -35,7 +35,7 @@ window.NAHID_KNOWLEDGE = {
   skills: {
     planning: ["Requirement analysis", "Agile delivery", "Team leadership", "Git / GitHub", "Estimation"],
     frontend: ["HTML / CSS", "Tailwind CSS", "JavaScript", "React.js", "Livewire", "UI / UX flows"],
-    backend: ["PHP + OOP", "Laravel", "REST APIs", "Lumen", "Flask", "WordPress", "Python"],
+    backend: ["PHP + OOP", "Laravel", "REST APIs", "Microservices", "Lumen", "Flask", "WordPress", "Python"],
     databases: ["MySQL", "PostgreSQL", "Schema design", "Redis cache", "Indexing", "Migrations"],
     devops: ["AWS", "Docker", "cPanel", "CDN", "Linux servers", "SSL / HTTPS"],
     mobile: ["Flutter", "Firebase", "Android", "Push / FCM", "REST API clients"],
@@ -130,7 +130,7 @@ window.NAHID_KNOWLEDGE = {
       tags: ["laravel", "livewire", "api", "saas"],
       stack: "Laravel, Livewire, REST APIs",
       blurb: "SaaS smart fuel pump solution.",
-      url: "https://smet.ryogas.com/"
+      url: "https://www.ryogas.com/"
     },
     {
       name: "HiLinkz",
@@ -179,7 +179,7 @@ window.NAHID_KNOWLEDGE = {
       id: "experience",
       keywords: ["experience", "years", "senior", "career", "hilinkz", "job", "work history", "resume", "role"],
       answer:
-        "## Experience\n\n**6+ years** building production software.\n\n- **2020–present** — Sr. Software Engineer at **HiLinkz**: ERP, CRM, and SaaS end-to-end\n- **Focus** — Laravel / Lumen / Flask APIs, MySQL & PostgreSQL, Redis, AWS / cPanel, 2FA, AI automation\n- **2018–2020** — Freelance full-stack PHP / Laravel delivery"
+        "## Experience\n\n**6+ years** building production software.\n\n- **2020–present** — Sr. Software Engineer at **HiLinkz**: ERP, CRM, SaaS, and Microservices end-to-end\n- **Focus** — Laravel / Lumen / Flask APIs, MySQL & PostgreSQL, Redis, AWS / cPanel, 2FA, AI automation\n- **2018–2020** — Freelance full-stack PHP / Laravel delivery"
     },
     {
       id: "stack",

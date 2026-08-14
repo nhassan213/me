@@ -539,11 +539,11 @@ a:hover {
 .cv-project-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2.8mm;
+  gap: 2.2mm;
 }
 
 .cv-card {
-  padding: 2.8mm 3mm;
+  padding: 2.2mm 2.4mm;
   border-radius: 6px;
   background: linear-gradient(145deg, #f4f9fc, #eef6fb);
   border: 1px solid rgba(20, 157, 221, 0.18);
